@@ -25,6 +25,8 @@ public class ExpandableListFragment extends Fragment implements
     private ExpandableListView mList;
     private View mListContainer;
     private boolean mListShown;
+    private CharSequence mLoadingText;
+    private TextView mLoadingView;
     private View mProgressContainer;
     final private Runnable mRequestFocus = new Runnable() {
         @Override
@@ -45,6 +47,7 @@ public class ExpandableListFragment extends Fragment implements
         if (root instanceof ExpandableListView) {
             mList = (ExpandableListView) root;
         } else {
+        	mLoadingView = (TextView) root.findViewById(R.id.internalLoading);
             mStandardEmptyView = (TextView) root
                     .findViewById(R.id.internalEmpty);
             if (mStandardEmptyView == null) {
@@ -71,6 +74,9 @@ public class ExpandableListFragment extends Fragment implements
             } else if (mEmptyText != null) {
                 mStandardEmptyView.setText(mEmptyText);
                 mList.setEmptyView(mStandardEmptyView);
+            }
+            if (mLoadingView != null && mLoadingText != null) {
+            	mLoadingView.setText(mLoadingText);
             }
         }
         mListShown = true;
@@ -225,6 +231,16 @@ public class ExpandableListFragment extends Fragment implements
     public void setListShownNoAnimation(boolean shown) {
         setListShown(shown, false);
     }
+    
+    public void setLoadingText(CharSequence text) {
+        ensureList();
+        if (mLoadingView == null) {
+            throw new IllegalStateException(
+                    "Can't be used with a custom content view");
+        }
+        mLoadingView.setText(text);
+        mLoadingText = text;
+    }    
     
     public boolean setSelectedChild(int groupPosition, int childPosition,
             boolean shouldExpandGroup) {
