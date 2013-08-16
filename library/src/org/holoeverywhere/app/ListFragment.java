@@ -22,6 +22,8 @@ public class ListFragment extends Fragment {
     private ListView mList;
     private View mListContainer;
     private boolean mListShown;
+    private CharSequence mLoadingText;
+    private TextView mLoadingView;
     final private AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View v, int position,
@@ -49,6 +51,7 @@ public class ListFragment extends Fragment {
         if (root instanceof ListView) {
             mList = (ListView) root;
         } else {
+        	mLoadingView = (TextView) root.findViewById(R.id.internalLoading);
             mStandardEmptyView = (TextView) root
                     .findViewById(R.id.internalEmpty);
             if (mStandardEmptyView == null) {
@@ -76,6 +79,9 @@ public class ListFragment extends Fragment {
                 mStandardEmptyView.setText(mEmptyText);
                 mList.setEmptyView(mStandardEmptyView);
             }
+            if (mLoadingView != null && mLoadingText != null) {
+            	mLoadingView.setText(mLoadingText);
+            }            
         }
         mListShown = true;
         mList.setOnItemClickListener(mOnClickListener);
@@ -210,6 +216,16 @@ public class ListFragment extends Fragment {
         setListShown(shown, false);
     }
 
+    public void setLoadingText(CharSequence text) {
+        ensureList();
+        if (mLoadingView == null) {
+            throw new IllegalStateException(
+                    "Can't be used with a custom content view");
+        }
+        mLoadingView.setText(text);
+        mLoadingText = text;
+    }    
+    
     public void setSelection(int position) {
         ensureList();
         mList.setSelection(position);
