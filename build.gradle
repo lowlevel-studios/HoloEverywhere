@@ -10,14 +10,14 @@ buildscript {
 
 allprojects {
   group = 'org.holoeverywhere'
-  version = '2.0.1-SNAPSHOT'
+  version = '2.1.1-SNAPSHOT'
 
   repositories {
     mavenLocal()
     mavenCentral()
     maven { url "https://raw.github.com/Prototik/HoloEverywhere/repo" }
   }
-  
+
   tasks.withType(Compile) {
     options.encoding = "UTF-8"
   }
