@@ -21,6 +21,8 @@ public class GridFragment extends Fragment {
     private GridView mGrid;
     private View mGridContainer;
     private boolean mGridShown;
+    private CharSequence mLoadingText;
+    private TextView mLoadingView;
     final private Handler mHandler = new Handler();
     final private AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -49,6 +51,7 @@ public class GridFragment extends Fragment {
         if (root instanceof GridView) {
             mGrid = (GridView) root;
         } else {
+        	mLoadingView = (TextView) root.findViewById(R.id.internalLoading);
             mStandardEmptyView = (TextView) root
                     .findViewById(R.id.internalEmpty);
             if (mStandardEmptyView == null) {
@@ -75,6 +78,9 @@ public class GridFragment extends Fragment {
             } else if (mEmptyText != null) {
                 mStandardEmptyView.setText(mEmptyText);
                 mGrid.setEmptyView(mStandardEmptyView);
+            }
+            if (mLoadingView != null && mLoadingText != null) {
+            	mLoadingView.setText(mLoadingText);
             }
         }
         mGridShown = true;
@@ -210,6 +216,16 @@ public class GridFragment extends Fragment {
         setGridShown(shown, false);
     }
 
+    public void setLoadingText(CharSequence text) {
+    	ensureGrid();
+        if (mLoadingView == null) {
+            throw new IllegalStateException(
+                    "Can't be used with a custom content view");
+        }
+        mLoadingView.setText(text);
+        mLoadingText = text;
+    }
+    
     public void setSelection(int position) {
         ensureGrid();
         mGrid.setSelection(position);
