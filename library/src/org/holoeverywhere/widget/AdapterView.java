@@ -1,9 +1,9 @@
-
 package org.holoeverywhere.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Parcelable;
 import android.os.SystemClock;
@@ -368,7 +368,8 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
             mNeedSync = false;
             checkSelectionChanged();
         }
-        ReflectHelper.invoke(this, "notifyAccessibilityStateChanged", null);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+            ReflectHelper.invoke(this, "notifyAccessibilityStateChanged", null);
     }
 
     boolean isInFilterMode() {
