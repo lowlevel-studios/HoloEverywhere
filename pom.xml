@@ -65,7 +65,7 @@
 		<repository>
 			<id>holoeverywhereRepo</id>
 			<name>HoloEverywhere Repo</name>
-			<url>https://raw.github.com/Prototik/HoloEverywhere/repo</url>
+			<url>http://192.241.191.41/repo</url>
 			<layout>default</layout>
 		</repository>
 	</repositories>
@@ -74,7 +74,7 @@
 		<repository>
 			<id>holoeverywhereRepo</id>
 			<name>HoloEverywhere Repo</name>
-			<url>https://raw.github.com/Prototik/HoloEverywhere/repo</url>
+			<url>http://192.241.191.41/repo</url>
 			<uniqueVersion>true</uniqueVersion>
 		</repository>
 	</distributionManagement>
@@ -107,14 +107,14 @@
 			<dependency>
 				<groupId>android</groupId>
 				<artifactId>android</artifactId>
-				<version>4.3_r2</version>
+				<version>4.4_r1</version>
 				<scope>provided</scope>
 			</dependency>
 
             <dependency>
                 <groupId>com.android.support</groupId>
                 <artifactId>support-v4</artifactId>
-                <version>18.0.4</version>
+                <version>19.0.1</version>
             </dependency>
 
             <dependency>
@@ -182,7 +182,7 @@
 					<extensions>true</extensions>
 					<configuration>
 						<sdk>
-							<platform>18</platform>
+							<platform>19</platform>
 						</sdk>
 						<sign>
 							<debug>false</debug>

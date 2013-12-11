@@ -16,12 +16,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion '18.1'
+    compileSdkVersion 19
+    buildToolsVersion '19.0.0'
 
     defaultConfig {
         minSdkVersion 7
-        targetSdkVersion 18
+        targetSdkVersion 19
 
         versionName '2.1.1-SNAPSHOT'
         versionCode 2001001
@@ -76,7 +76,7 @@ if (android.class.name.startsWith('com.android.build.gradle.LibraryExtension')) 
                 configurations.compile,
                 "${buildDir}/classes/release",
                 project.fileTree("${buildDir}/exploded-bundles") { include '*/classes.jar' },
-                new File(android.plugin.sdkDirectory, 'platforms/android-18/android.jar')
+                new File(android.plugin.sdkDirectory, 'platforms/android-19/android.jar')
         )
     }
 
@@ -98,6 +98,9 @@ if (android.class.name.startsWith('com.android.build.gradle.LibraryExtension')) 
         }
     }
 }
+
+apply plugin: 'holoeverywhere-main'
+holoeverywhere.include 'no'
 
 // Deploy to maven repo (local)
 afterEvaluate { project ->
