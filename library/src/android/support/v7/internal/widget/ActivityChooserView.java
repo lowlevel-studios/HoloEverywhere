@@ -16,6 +16,15 @@
 
 package android.support.v7.internal.widget;
 
+import org.holoeverywhere.LayoutInflater;
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.FrameLayout;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListPopupWindow;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.PopupWindow;
+import org.holoeverywhere.widget.TextView;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,19 +38,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-import org.holoeverywhere.LayoutInflater;
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.FrameLayout;
-import org.holoeverywhere.widget.LinearLayout;
-import org.holoeverywhere.widget.ListPopupWindow;
-import org.holoeverywhere.widget.ListView;
-import org.holoeverywhere.widget.PopupWindow;
-import org.holoeverywhere.widget.TextView;
-
 
 /**
  * This class is a view for choosing an activity for handling a given {@link Intent}.
@@ -136,7 +136,7 @@ public class ActivityChooserView extends ViewGroup implements
         }
     };
 
-    private final ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+    private final OnGlobalLayoutListener mOnGlobalLayoutListener = new OnGlobalLayoutListener() {
         @Override
         public void onGlobalLayout() {
             if (isShowingPopup()) {

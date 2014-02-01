@@ -16,6 +16,14 @@
 
 package android.support.v7.internal.view;
 
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+import org.holoeverywhere.R;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -24,7 +32,7 @@ import android.support.v4.internal.view.SupportMenu;
 import android.support.v4.view.ActionProvider;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.internal.view.menu.MenuItemImpl;
-import android.support.v7.internal.view.menu.MenuWrapperFactory;
+import android.support.v7.internal.view.menu.MenuItemWrapperICS;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -36,17 +44,9 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 
-import org.holoeverywhere.R;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-
 /**
  * This class is used to instantiate menu XML files into Menu objects.
- * <p/>
+ * <p>
  * For performance reasons, menu inflation relies heavily on pre-processing of
  * XML files that is done at build time. Therefore, it is not currently possible
  * to use SupportMenuInflater with an XmlPullParser over a plain XML file at runtime;
@@ -57,24 +57,27 @@ import java.lang.reflect.Method;
  */
 public class SupportMenuInflater extends MenuInflater {
     private static final String LOG_TAG = "SupportMenuInflater";
-    /**
-     * Menu tag name in XML.
-     */
+
+    /** Menu tag name in XML. */
     private static final String XML_MENU = "menu";
-    /**
-     * Group tag name in XML.
-     */
+
+    /** Group tag name in XML. */
     private static final String XML_GROUP = "group";
-    /**
-     * Item tag name in XML.
-     */
+
+    /** Item tag name in XML. */
     private static final String XML_ITEM = "item";
+
     private static final int NO_ID = 0;
-    private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[]{Context.class};
+
+    private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] {Context.class};
+
     private static final Class<?>[] ACTION_PROVIDER_CONSTRUCTOR_SIGNATURE =
             ACTION_VIEW_CONSTRUCTOR_SIGNATURE;
+
     private final Object[] mActionViewConstructorArguments;
+
     private final Object[] mActionProviderConstructorArguments;
+
     private Context mContext;
     private Object mRealOwner;
 
@@ -87,7 +90,7 @@ public class SupportMenuInflater extends MenuInflater {
         super(context);
         mContext = context;
         mRealOwner = context;
-        mActionViewConstructorArguments = new Object[]{context};
+        mActionViewConstructorArguments = new Object[] {context};
         mActionProviderConstructorArguments = mActionViewConstructorArguments;
     }
 
@@ -96,9 +99,9 @@ public class SupportMenuInflater extends MenuInflater {
      * {@link InflateException} if there is an error.
      *
      * @param menuRes Resource ID for an XML layout resource to load (e.g.,
-     *                <code>R.menu.main_activity</code>)
-     * @param menu    The Menu to inflate into. The items and submenus will be
-     *                added to this Menu.
+     *            <code>R.menu.main_activity</code>)
+     * @param menu The Menu to inflate into. The items and submenus will be
+     *            added to this Menu.
      */
     @Override
     public void inflate(int menuRes, Menu menu) {
@@ -209,7 +212,8 @@ public class SupportMenuInflater extends MenuInflater {
 
     private static class InflatedOnMenuItemClickListener
             implements MenuItem.OnMenuItemClickListener {
-        private static final Class<?>[] PARAM_TYPES = new Class[]{MenuItem.class};
+        private static final Class<?>[] PARAM_TYPES = new Class[] { MenuItem.class };
+
         private Object mRealOwner;
         private Method mMethod;
 
@@ -243,20 +247,13 @@ public class SupportMenuInflater extends MenuInflater {
 
     /**
      * State for the current menu.
-     * <p/>
+     * <p>
      * Groups can not be nested unless there is another menu (which will have
      * its state class).
      */
     private class MenuState {
-        private static final int defaultGroupId = NO_ID;
-        private static final int defaultItemId = NO_ID;
-        private static final int defaultItemCategory = 0;
-        private static final int defaultItemOrder = 0;
-        private static final int defaultItemCheckable = 0;
-        private static final boolean defaultItemChecked = false;
-        private static final boolean defaultItemVisible = true;
-        private static final boolean defaultItemEnabled = true;
         private Menu menu;
+
         /*
          * Group state is set on items as they are added, allowing an item to
          * override its group state. (As opposed to set on items at the group end tag.)
@@ -267,6 +264,7 @@ public class SupportMenuInflater extends MenuInflater {
         private int groupCheckable;
         private boolean groupVisible;
         private boolean groupEnabled;
+
         private boolean itemAdded;
         private int itemId;
         private int itemCategoryOrder;
@@ -285,6 +283,7 @@ public class SupportMenuInflater extends MenuInflater {
         private boolean itemChecked;
         private boolean itemVisible;
         private boolean itemEnabled;
+
         /**
          * Sync to attrs.xml enum, values in MenuItem:
          * - 0: never
@@ -293,11 +292,23 @@ public class SupportMenuInflater extends MenuInflater {
          * - -1: Safe sentinel for "no value".
          */
         private int itemShowAsAction;
+
         private int itemActionViewLayout;
         private String itemActionViewClassName;
         private String itemActionProviderClassName;
+
         private String itemListenerMethodName;
+
         private ActionProvider itemActionProvider;
+
+        private static final int defaultGroupId = NO_ID;
+        private static final int defaultItemId = NO_ID;
+        private static final int defaultItemCategory = 0;
+        private static final int defaultItemOrder = 0;
+        private static final int defaultItemCheckable = 0;
+        private static final boolean defaultItemChecked = false;
+        private static final boolean defaultItemVisible = true;
+        private static final boolean defaultItemEnabled = true;
 
         public MenuState(final Menu menu) {
             this.menu = menu;
@@ -336,7 +347,7 @@ public class SupportMenuInflater extends MenuInflater {
          * Called when the parser is pointing to an item tag.
          */
         public void readItem(AttributeSet attrs) {
-            TypedValue value = new TypedValue();
+        	TypedValue value = new TypedValue();
             TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.MenuItem);
 
             // Inherit attributes from the group as default value
@@ -427,24 +438,14 @@ public class SupportMenuInflater extends MenuInflater {
                         new InflatedOnMenuItemClickListener(mRealOwner, itemListenerMethodName));
             }
 
+            final MenuItemImpl impl = item instanceof MenuItemImpl ? (MenuItemImpl) item : null;
             if (itemCheckable >= 2) {
                 if (item instanceof MenuItemImpl) {
                     ((MenuItemImpl) item).setExclusiveCheckable(true);
-                } else {
-                    // Let's try reflection!
-                    try {
-                        // Android - the most open-source and developer-friendly os in the world
-                        MenuItem unwrappedItem = MenuWrapperFactory.unwrap(item);
-                        Class<?> clazz = unwrappedItem.getClass();
-                        Method method = clazz.getDeclaredMethod("setExclusiveCheckable", boolean.class);
-                        method.setAccessible(true);
-                        method.invoke(unwrappedItem, true);
-                    } catch(Exception e) {
-                        // So, it's bad :(
-                    }
+                } else if (item instanceof MenuItemWrapperICS) {
+                    ((MenuItemWrapperICS) item).setExclusiveCheckable(true);
                 }
             }
-
 
             boolean actionViewSpecified = false;
             if (itemActionViewClassName != null) {
@@ -485,7 +486,7 @@ public class SupportMenuInflater extends MenuInflater {
 
         @SuppressWarnings("unchecked")
         private <T> T newInstance(String className, Class<?>[] constructorSignature,
-                                  Object[] arguments) {
+                Object[] arguments) {
             try {
                 Class<?> clazz = mContext.getClassLoader().loadClass(className);
                 Constructor<?> constructor = clazz.getConstructor(constructorSignature);

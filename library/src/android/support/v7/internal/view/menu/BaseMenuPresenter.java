@@ -16,12 +16,12 @@
 
 package android.support.v7.internal.view.menu;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
 
 /**
  * Base class for MenuPresenters that have a consistent container view and item views. Behaves

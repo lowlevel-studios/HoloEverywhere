@@ -16,12 +16,12 @@
 
 package android.support.v7.internal.widget;
 
+import org.holoeverywhere.widget.LinearLayout;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ActionMode;
 import android.view.View;
-
-import org.holoeverywhere.widget.LinearLayout;
 
 /**
  * @hide

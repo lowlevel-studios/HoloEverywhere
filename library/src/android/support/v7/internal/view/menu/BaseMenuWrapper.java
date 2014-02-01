@@ -16,12 +16,12 @@
 
 package android.support.v7.internal.view.menu;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 import android.support.v4.internal.view.SupportMenuItem;
 import android.view.MenuItem;
 import android.view.SubMenu;
-
-import java.util.HashMap;
-import java.util.Iterator;
 
 abstract class BaseMenuWrapper<T> extends BaseWrapper<T> {
 

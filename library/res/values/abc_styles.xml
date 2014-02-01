@@ -126,6 +126,9 @@
     <style name="Widget.AppCompat.ActionMode" parent="Widget.AppCompat.Base.ActionMode">
     </style>
 
+    <style name="Widget.AppCompat.Light.ActionMode" parent="Widget.AppCompat.Light.Base.ActionMode">
+    </style>
+
     <style name="Widget.AppCompat.Light.ActionMode.Inverse"
            parent="Widget.AppCompat.Light.Base.ActionMode.Inverse">
     </style>
@@ -177,6 +180,13 @@
            parent="TextAppearance.Widget.AppCompat.Base.ExpandedMenu.Item">
     </style>
 
+    <style name="Widget.AppCompat.ListPopupWindow" parent="Widget.AppCompat.Base.ListPopupWindow">
+    </style>
+
+    <style name="Widget.AppCompat.Light.ListPopupWindow"
+           parent="Widget.AppCompat.Light.Base.ListPopupWindow">
+    </style>
+
     <style name="Widget.AppCompat.PopupMenu" parent="Widget.AppCompat.Base.PopupMenu">
     </style>
 
@@ -224,7 +234,7 @@
     </style>
 
     <style name="Widget.AppCompat.Light.AutoCompleteTextView"
-           parent="Widget.AppCompat.Base.AutoCompleteTextView">
+           parent="Widget.AppCompat.Light.Base.AutoCompleteTextView">
     </style>
 
     <style name="Widget.AppCompat.ActivityChooserView"

@@ -16,6 +16,15 @@ package android.support.v7.widget;
  * limitations under the License.
  */
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.WeakHashMap;
+
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.TextView;
+
 import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.ComponentName;
@@ -31,9 +40,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.ResourceCursorAdapter;
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.TextView;
-
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -44,12 +50,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.WeakHashMap;
 
 /**
  * Provides the contents for the suggestion drop-down list.in {@link SearchView}.

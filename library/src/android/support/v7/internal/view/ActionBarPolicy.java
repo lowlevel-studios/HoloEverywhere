@@ -16,11 +16,12 @@
 
 package android.support.v7.internal.view;
 
+import org.holoeverywhere.R;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Build;
-import org.holoeverywhere.R;
 
 /**
  * Allows components to query for various configuration policy decisions about how the action bar

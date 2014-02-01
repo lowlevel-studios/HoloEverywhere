@@ -16,17 +16,16 @@
 
 package android.support.v7.internal.view.menu;
 
+import org.holoeverywhere.R;
+import org.holoeverywhere.app.AlertDialog;
+import org.holoeverywhere.app.Dialog;
+
 import android.content.DialogInterface;
 import android.os.IBinder;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import org.holoeverywhere.R;
-import org.holoeverywhere.app.AlertDialog;
-import org.holoeverywhere.app.Dialog;
-
 /**
  * Helper for menus that appear as Dialogs (context and submenus).
  *
@@ -36,9 +35,9 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
         DialogInterface.OnClickListener,
         DialogInterface.OnDismissListener,
         MenuPresenter.Callback {
-    ListMenuPresenter mPresenter;
     private MenuBuilder mMenu;
     private AlertDialog mDialog;
+    ListMenuPresenter mPresenter;
     private MenuPresenter.Callback mPresenterCallback;
 
     public MenuDialogHelper(MenuBuilder menu) {

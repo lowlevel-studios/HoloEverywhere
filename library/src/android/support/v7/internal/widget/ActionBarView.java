@@ -16,6 +16,15 @@
 
 package android.support.v7.internal.widget;
 
+import org.holoeverywhere.LayoutInflater;
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.FrameLayout;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ProgressBar;
+import org.holoeverywhere.widget.Spinner;
+import org.holoeverywhere.widget.TextView;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -27,19 +36,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.internal.view.SupportMenu;
+import android.support.v4.internal.view.SupportMenuItem;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.OnNavigationListener;
-
-import org.holoeverywhere.LayoutInflater;
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.AdapterView;
-import org.holoeverywhere.widget.FrameLayout;
-import org.holoeverywhere.widget.LinearLayout;
-import org.holoeverywhere.widget.ProgressBar;
-import org.holoeverywhere.widget.Spinner;
-import org.holoeverywhere.widget.TextView;
-
-import android.support.v7.view.CollapsibleActionView;
 import android.support.v7.internal.view.menu.ActionMenuItem;
 import android.support.v7.internal.view.menu.ActionMenuPresenter;
 import android.support.v7.internal.view.menu.ActionMenuView;
@@ -48,8 +48,7 @@ import android.support.v7.internal.view.menu.MenuItemImpl;
 import android.support.v7.internal.view.menu.MenuPresenter;
 import android.support.v7.internal.view.menu.MenuView;
 import android.support.v7.internal.view.menu.SubMenuBuilder;
-import android.support.v4.internal.view.SupportMenu;
-import android.support.v4.internal.view.SupportMenuItem;
+import android.support.v7.view.CollapsibleActionView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -279,6 +278,15 @@ public class ActionBarView extends AbsActionBarView {
             }
             mTabScrollView.setAllowCollapse(true);
         }
+
+        if (mProgressView != null) {
+            removeView(mProgressView);
+            initProgress();
+        }
+        if (mIndeterminateProgressView != null) {
+            removeView(mIndeterminateProgressView);
+            initIndeterminateProgress();
+        }
     }
 
     /**
@@ -422,6 +430,7 @@ public class ActionBarView extends AbsActionBarView {
                             R.bool.abc_action_bar_expanded_action_views_exclusive));
             configPresenters(builder);
             menuView = (ActionMenuView) mActionMenuPresenter.getMenuView(this);
+            menuView.initialize(builder);
             final ViewGroup oldParent = (ViewGroup) menuView.getParent();
             if (oldParent != null && oldParent != this) {
                 oldParent.removeView(menuView);

@@ -77,10 +77,6 @@
            parent="android:Widget.Holo.Light.ActionBar.TabText.Inverse">
     </style>
 
-    <style name="Widget.AppCompat.Light.Base.ActionMode.Inverse"
-           parent="android:Widget.Holo.Light.ActionMode.Inverse">
-    </style>
-
     <style name="TextAppearance.AppCompat.Widget.Base.ActionBar.Menu"
            parent="android:TextAppearance.Holo.Widget.ActionBar.Menu">
     </style>
@@ -99,6 +95,16 @@
 
     <style name="TextAppearance.AppCompat.Widget.Base.ActionBar.Subtitle.Inverse"
            parent="android:TextAppearance.Holo.Widget.ActionBar.Subtitle.Inverse">
+    </style>
+
+    <style name="Widget.AppCompat.Base.ActionMode" parent="android:Widget.Holo.ActionMode">
+    </style>
+
+    <style name="Widget.AppCompat.Light.Base.ActionMode" parent="android:Widget.Holo.Light.ActionMode">
+    </style>
+
+    <style name="Widget.AppCompat.Light.Base.ActionMode.Inverse"
+           parent="android:Widget.Holo.Light.ActionMode.Inverse">
     </style>
 
     <style name="TextAppearance.AppCompat.Widget.Base.ActionMode.Title"
@@ -164,6 +170,14 @@
 
     <!-- Popup Menu -->
 
+    <style name="Widget.AppCompat.Base.ListPopupWindow"
+           parent="android:Widget.Holo.ListPopupWindow">
+    </style>
+
+    <style name="Widget.AppCompat.Light.Base.ListPopupWindow"
+           parent="android:Widget.Holo.Light.ListPopupWindow">
+    </style>
+
     <style name="Widget.AppCompat.Base.PopupMenu" parent="android:Widget.Holo.PopupMenu">
     </style>
 
@@ -207,6 +221,14 @@
 
     <style name="TextAppearance.AppCompat.Light.Base.SearchResult.Subtitle"
            parent="@android:TextAppearance.Holo.SearchResult.Subtitle">
+    </style>
+
+    <style name="Widget.AppCompat.Base.ActivityChooserView" parent="">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/abc_ab_share_pack_holo_dark</item>
+        <item name="android:divider">?attr/dividerVertical</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:dividerPadding">6dip</item>
     </style>
 
 </resources>

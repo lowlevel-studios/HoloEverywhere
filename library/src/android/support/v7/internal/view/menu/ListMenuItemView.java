@@ -16,17 +16,17 @@
 
 package android.support.v7.internal.view.menu;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
+import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.R;
 import org.holoeverywhere.widget.CheckBox;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.RadioButton;
 import org.holoeverywhere.widget.TextView;
 
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -46,7 +46,7 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
     private RadioButton mRadioButton;
     private TextView mTitleView;
     private CheckBox mCheckBox;
-    protected TextView mShortcutView;
+    private TextView mShortcutView;
 
     private Drawable mBackground;
     private int mTextAppearance;

@@ -16,13 +16,14 @@
 
 package android.support.v7.internal.view.menu;
 
-import android.content.Context;
-import android.database.DataSetObserver;
-import android.os.Bundle;
-import android.os.Parcelable;
+import java.util.ArrayList;
 
 import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.R;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.SparseArray;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -30,8 +31,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
-
-import java.util.ArrayList;
 
 /**
  * MenuPresenter for list-style menus.

@@ -16,6 +16,12 @@
 
 package android.support.v7.internal.view.menu;
 
+import java.util.Locale;
+
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.TextView;
+import org.holoeverywhere.widget.Toast;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -27,12 +33,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.TextView;
-import org.holoeverywhere.widget.Toast;
-
-import java.util.Locale;
-
 /**
  * @hide
  */
@@ -41,10 +41,12 @@ public class ActionMenuItemView extends TextView
         ActionMenuView.ActionMenuChildView {
 
     private static final String TAG = "ActionMenuItemView";
+
     private MenuItemImpl mItemData;
     private CharSequence mTitle;
     private Drawable mIcon;
     private MenuBuilder.ItemInvoker mItemInvoker;
+
     private boolean mAllowTextWithIcon;
     private boolean mExpandedFormat;
     private int mMinWidth;
@@ -62,9 +64,9 @@ public class ActionMenuItemView extends TextView
         super(context, attrs, defStyle);
         final Resources res = context.getResources();
         mAllowTextWithIcon = res.getBoolean(
-                org.holoeverywhere.R.bool.abc_config_allowActionMenuItemTextWithIcon);
+                R.bool.abc_config_allowActionMenuItemTextWithIcon);
         TypedArray a = context.obtainStyledAttributes(attrs,
-                org.holoeverywhere.R.styleable.ActionMenuItemView, 0, 0);
+                R.styleable.ActionMenuItemView, 0, 0);
         mMinWidth = a.getDimensionPixelSize(
                 R.styleable.ActionMenuItemView_android_minWidth, 0);
         a.recycle();
@@ -247,7 +249,7 @@ public class ActionMenuItemView extends TextView
 
         @Override
         public void onFocusChanged(View view, CharSequence sourceText, boolean focused,
-                                   int direction, Rect previouslyFocusedRect) {
+                int direction, Rect previouslyFocusedRect) {
         }
     }
 }

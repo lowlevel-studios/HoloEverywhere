@@ -2,6 +2,13 @@
 
 package android.support.v7.internal.view.menu;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.holoeverywhere.R;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +19,10 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.view.MenuItemCompat;
-import org.holoeverywhere.R;
-import android.support.v4.view.ActionProvider;
 import android.support.v4.internal.view.SupportMenu;
 import android.support.v4.internal.view.SupportMenuItem;
+import android.support.v4.view.ActionProvider;
+import android.support.v4.view.MenuItemCompat;
 import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.KeyCharacterMap;
@@ -24,11 +30,6 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Implementation of the {@link android.support.v4.internal.view.SupportMenu} interface for creating a

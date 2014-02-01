@@ -113,10 +113,6 @@
   <attr name="windowActionModeOverlay" format="boolean" />
   <attr name="windowAnimationStyle" format="reference" />
   <attr name="windowContentOverlay" format="boolean" />
-  <attr name="windowFixedHeightMajor" format="dimension|fraction" />
-  <attr name="windowFixedHeightMinor" format="dimension|fraction" />
-  <attr name="windowFixedWidthMajor" format="dimension|fraction" />
-  <attr name="windowFixedWidthMinor" format="dimension|fraction" />
   <attr name="windowMinHeightMajor" format="dimension|fraction" />
   <attr name="windowMinHeightMinor" format="dimension|fraction" />
   <attr name="windowMinWidthMajor" format="reference" />

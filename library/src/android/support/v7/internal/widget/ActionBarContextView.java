@@ -15,19 +15,18 @@
  */
 package android.support.v7.internal.widget;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-
 import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.R;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 
-import android.support.v7.view.ActionMode;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.support.v7.internal.view.menu.ActionMenuPresenter;
 import android.support.v7.internal.view.menu.ActionMenuView;
 import android.support.v7.internal.view.menu.MenuBuilder;
+import android.support.v7.view.ActionMode;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;

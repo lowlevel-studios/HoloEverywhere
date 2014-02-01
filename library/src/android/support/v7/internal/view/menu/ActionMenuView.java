@@ -15,13 +15,13 @@
  */
 package android.support.v7.internal.view.menu;
 
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.LinearLayout;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Build;
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.LinearLayout;
-
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -420,7 +420,7 @@ public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvo
 
         final int childCount = getChildCount();
         final int midVertical = (top + bottom) / 2;
-        //final int dividerWidth = getDividerWidth();  No access outside framework
+        final int dividerWidth = getDividerWidth();
         int overflowWidth = 0;
         int nonOverflowWidth = 0;
         int nonOverflowCount = 0;
@@ -435,11 +435,9 @@ public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvo
             LayoutParams p = (LayoutParams) v.getLayoutParams();
             if (p.isOverflowButton) {
                 overflowWidth = v.getMeasuredWidth();
-// No access to dividerWidth
-//        if (hasDividerBeforeChildAt(i)) {
-//          overflowWidth += dividerWidth;
-//        }
-
+                if (hasSupportDividerBeforeChildAt(i)) {
+                    overflowWidth += dividerWidth;
+                }
                 int height = v.getMeasuredHeight();
                 int r = getWidth() - getPaddingRight() - p.rightMargin;
                 int l = r - overflowWidth;
@@ -453,10 +451,9 @@ public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvo
                 final int size = v.getMeasuredWidth() + p.leftMargin + p.rightMargin;
                 nonOverflowWidth += size;
                 widthRemaining -= size;
-// No access to dividerWidth
-//        if (hasDividerBeforeChildAt(i)) {
-//          nonOverflowWidth += dividerWidth;
-//        }
+                if (hasSupportDividerBeforeChildAt(i)) {
+                    nonOverflowWidth += dividerWidth;
+                }
                 nonOverflowCount++;
             }
         }
@@ -555,7 +552,7 @@ public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvo
         mMenu = menu;
     }
 
-    protected boolean hasDividerBeforeChildAt(int childIndex) {
+    protected boolean hasSupportDividerBeforeChildAt(int childIndex) {
         final View childBefore = getChildAt(childIndex - 1);
         final View child = getChildAt(childIndex);
         boolean result = false;

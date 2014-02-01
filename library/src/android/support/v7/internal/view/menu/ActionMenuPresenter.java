@@ -16,7 +16,12 @@
 
 package android.support.v7.internal.view.menu;
 
+import java.util.ArrayList;
+
+import org.holoeverywhere.R;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Parcel;
@@ -32,10 +37,6 @@ import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import org.holoeverywhere.R;
-
-import java.util.ArrayList;
-
 /**
  * MenuPresenter for building action menus as seen in the action bar and action modes.
  *
@@ -45,10 +46,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         implements ActionProvider.SubUiVisibilityListener {
 
     private static final String TAG = "ActionMenuPresenter";
-    final PopupPresenterCallback mPopupPresenterCallback = new PopupPresenterCallback();
-    // Group IDs that have been added as actions - used temporarily, allocated here for reuse.
-    private final SparseBooleanArray mActionButtonGroups = new SparseBooleanArray();
-    int mOpenSubMenuId;
+
     private View mOverflowButton;
     private boolean mReserveOverflow;
     private boolean mReserveOverflowSet;
@@ -59,11 +57,21 @@ public class ActionMenuPresenter extends BaseMenuPresenter
     private boolean mStrictWidthLimit;
     private boolean mWidthLimitSet;
     private boolean mExpandedActionViewsExclusive;
+
     private int mMinCellSize;
+
+    // Group IDs that have been added as actions - used temporarily, allocated here for reuse.
+    private final SparseBooleanArray mActionButtonGroups = new SparseBooleanArray();
+
     private View mScrapActionButtonView;
+
     private OverflowPopup mOverflowPopup;
     private ActionButtonSubmenu mActionButtonPopup;
+
     private OpenOverflowRunnable mPostedOpenRunnable;
+
+    final PopupPresenterCallback mPopupPresenterCallback = new PopupPresenterCallback();
+    int mOpenSubMenuId;
 
     public ActionMenuPresenter(Context context) {
         super(context, R.layout.abc_action_menu_layout, R.layout.abc_action_menu_item_layout);
@@ -531,18 +539,8 @@ public class ActionMenuPresenter extends BaseMenuPresenter
     }
 
     private static class SavedState implements Parcelable {
-
-        public static final Parcelable.Creator<SavedState> CREATOR
-                = new Parcelable.Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
-        public int openSubMenuId;
+    	
+    	public int openSubMenuId;
 
         SavedState() {
         }
@@ -560,6 +558,17 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeInt(openSubMenuId);
         }
+
+        public static final Parcelable.Creator<SavedState> CREATOR
+                = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 
     private class OverflowMenuButton extends ImageButton implements ActionMenuChildView {
@@ -596,7 +605,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
     private class OverflowPopup extends MenuPopupHelper {
 
         public OverflowPopup(Context context, MenuBuilder menu, View anchorView,
-                             boolean overflowOnly) {
+                boolean overflowOnly) {
             super(context, menu, anchorView, overflowOnly);
             setCallback(mPopupPresenterCallback);
         }
@@ -610,28 +619,28 @@ public class ActionMenuPresenter extends BaseMenuPresenter
     }
 
     private class ActionButtonSubmenu extends MenuPopupHelper {
-        private SubMenuBuilder mSubMenu;
+    	private SubMenuBuilder mSubMenu;
+    	
+    	public ActionButtonSubmenu(Context context, SubMenuBuilder subMenu) {
+    		super(context, subMenu);
+    		mSubMenu = subMenu;
 
-        public ActionButtonSubmenu(Context context, SubMenuBuilder subMenu) {
-            super(context, subMenu);
-            mSubMenu = subMenu;
-
-            MenuItemImpl item = (MenuItemImpl) subMenu.getItem();
-            if (!item.isActionButton()) {
-                // Give a reasonable anchor to nested submenus.
-                setAnchorView(mOverflowButton == null ? (View) mMenuView : mOverflowButton);
-            }
+    		MenuItemImpl item = (MenuItemImpl) subMenu.getItem();
+    		if (!item.isActionButton()) {
+    			// Give a reasonable anchor to nested submenus.
+    			setAnchorView(mOverflowButton == null ? (View) mMenuView : mOverflowButton);
+    		}
 
             setCallback(mPopupPresenterCallback);
-
+            
             boolean preserveIconSpacing = false;
             final int count = subMenu.size();
             for (int i = 0; i < count; i++) {
-                MenuItem childItem = subMenu.getItem(i);
-                if (childItem.isVisible() && childItem.getIcon() != null) {
-                    preserveIconSpacing = true;
-                    break;
-                }
+            	MenuItem childItem = subMenu.getItem(i);
+            	if (childItem.isVisible() && childItem.getIcon() != null) {
+            		preserveIconSpacing = true;
+            		break;
+            	}
             }
             setForceShowIcon(preserveIconSpacing);
         }

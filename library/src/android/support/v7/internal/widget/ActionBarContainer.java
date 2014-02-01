@@ -16,14 +16,14 @@
 
 package android.support.v7.internal.widget;
 
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.FrameLayout;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.FrameLayout;
-
 import android.support.v7.view.ActionMode;
 import android.util.AttributeSet;
 import android.view.MotionEvent;

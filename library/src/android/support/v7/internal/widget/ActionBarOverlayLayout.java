@@ -16,13 +16,13 @@
 
 package android.support.v7.internal.widget;
 
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.FrameLayout;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.support.v7.app.ActionBar;
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.FrameLayout;
-
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -93,9 +93,11 @@ public class ActionBarOverlayLayout extends FrameLayout {
     void pullChildren() {
         if (mContent == null) {
             mContent = findViewById(R.id.action_bar_activity_content);
+            if (mContent == null) {
+                mContent = findViewById(android.R.id.content);
+            }
             mActionBarTop = findViewById(R.id.top_action_bar);
-            mContainerView = (ActionBarContainer) findViewById(
-                    R.id.action_bar_container);
+            mContainerView = (ActionBarContainer) findViewById(R.id.action_bar_container);
             mActionView = (ActionBarView) findViewById(R.id.action_bar);
             mActionBarBottom = findViewById(R.id.split_action_bar);
         }

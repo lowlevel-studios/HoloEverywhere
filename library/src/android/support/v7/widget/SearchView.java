@@ -16,6 +16,17 @@
 
 package android.support.v7.widget;
 
+import static android.support.v7.widget.SuggestionsAdapter.getColumnString;
+
+import java.lang.reflect.Method;
+import java.util.WeakHashMap;
+
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.AutoCompleteTextView;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
+
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -38,11 +49,6 @@ import android.os.ResultReceiver;
 import android.speech.RecognizerIntent;
 import android.support.v4.view.KeyEventCompat;
 import android.support.v4.widget.CursorAdapter;
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.AutoCompleteTextView;
-import org.holoeverywhere.widget.LinearLayout;
-import org.holoeverywhere.widget.ListView;
-
 import android.support.v7.view.CollapsibleActionView;
 import android.text.Editable;
 import android.text.InputType;
@@ -64,31 +70,33 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.lang.reflect.Method;
-import java.util.WeakHashMap;
-
-import static android.support.v7.widget.SuggestionsAdapter.getColumnString;
+import android.widget.TextView.OnEditorActionListener;
 
 /**
  * A widget that provides a user interface for the user to enter a search query and submit a request
  * to a search provider. Shows a list of query suggestions or results, if available, and allows the
  * user to pick a suggestion or result to launch into.
  *
+ * <p class="note"><strong>Note:</strong> This class is included in the <a
+ * href="{@docRoot}tools/extras/support-library.html">support library</a> for compatibility
+ * with API level 7 and higher. If you're developing your app for API level 11 and higher
+ * <em>only</em>, you should instead use the framework {@link android.widget.SearchView} class.</p>
+ *
  * <p>
- * When the SearchView is used in an ActionBar as an action view for a collapsible menu item, it
- * needs to be set to iconified by default using {@link #setIconifiedByDefault(boolean)
- * setIconifiedByDefault(true)}. This is the default, so nothing needs to be done.
+ * When the SearchView is used in an {@link android.support.v7.app.ActionBar}
+ * as an action view, it's collapsed by default, so you must provide an icon for the action.
  * </p>
  * <p>
- * If you want the search field to always be visible, then call setIconifiedByDefault(false).
+ * If you want the search field to always be visible, then call
+ * {@link #setIconifiedByDefault(boolean) setIconifiedByDefault(false)}.
  * </p>
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For information about using {@code SearchView}, read the
- * <a href="{@docRoot}guide/topics/search/index.html">Search</a> developer guide.</p>
+ * <a href="{@docRoot}guide/topics/search/index.html">Search</a> API guide.
+ * Additional information about action views is also available in the <<a
+ * href="{@docRoot}guide/topics/ui/actionbar.html#ActionView">Action Bar</a> API guide</p>
  * </div>
  *
  * @see android.support.v4.view.MenuItemCompat#SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW
@@ -1088,12 +1096,12 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
         mVoiceButton.setVisibility(visibility);
     }
 
-    private final TextView.OnEditorActionListener mOnEditorActionListener = new TextView.OnEditorActionListener() {
+    private final OnEditorActionListener mOnEditorActionListener = new OnEditorActionListener() {
 
         /**
          * Called when the input method default action key is pressed.
          */
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        public boolean onEditorAction(android.widget.TextView v, int actionId, KeyEvent event) {
             onSubmitQuery();
             return true;
         }

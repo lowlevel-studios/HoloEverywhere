@@ -15,29 +15,28 @@
  */
 package android.support.v7.internal.widget;
 
+import org.holoeverywhere.R;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.Spinner;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
-
-import org.holoeverywhere.LayoutInflater;
-import org.holoeverywhere.R;
-import org.holoeverywhere.widget.AdapterView;
-import org.holoeverywhere.widget.LinearLayout;
-import org.holoeverywhere.widget.ListView;
-import org.holoeverywhere.widget.Spinner;
-import org.holoeverywhere.widget.TextView;
-
 import android.support.v7.internal.view.ActionBarPolicy;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.BaseAdapter;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * This widget implements the dynamic action bar tab behavior that can change across different
@@ -179,6 +178,9 @@ public class ScrollingTabContainerView extends HorizontalScrollView
             if (isSelected) {
                 animateToTab(position);
             }
+        }
+        if (mTabSpinner != null && position >= 0) {
+            mTabSpinner.setSelection(position);
         }
     }
 

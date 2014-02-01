@@ -16,17 +16,20 @@
 
 package android.support.v7.app;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
+import org.holoeverywhere.LayoutInflater;
+import org.holoeverywhere.R;
+import org.holoeverywhere.app.Dialog;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
-
-import org.holoeverywhere.LayoutInflater;
-import org.holoeverywhere.R;
-import org.holoeverywhere.app.Dialog;
-
+import android.support.v4.internal.view.SupportMenuItem;
 import android.support.v7.internal.view.ActionBarPolicy;
 import android.support.v7.internal.view.SupportMenuInflater;
 import android.support.v7.internal.view.menu.MenuBuilder;
@@ -37,7 +40,6 @@ import android.support.v7.internal.widget.ActionBarOverlayLayout;
 import android.support.v7.internal.widget.ActionBarView;
 import android.support.v7.internal.widget.ScrollingTabContainerView;
 import android.support.v7.view.ActionMode;
-import android.support.v4.internal.view.SupportMenuItem;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
@@ -49,9 +51,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.SpinnerAdapter;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 class ActionBarImplBase extends ActionBar {
     private Context mContext;

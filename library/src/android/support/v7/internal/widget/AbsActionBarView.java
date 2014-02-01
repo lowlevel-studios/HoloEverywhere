@@ -15,11 +15,12 @@
  */
 package android.support.v7.internal.widget;
 
+import org.holoeverywhere.R;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Build;
-import org.holoeverywhere.R;
 import android.support.v7.internal.view.menu.ActionMenuPresenter;
 import android.support.v7.internal.view.menu.ActionMenuView;
 import android.util.AttributeSet;

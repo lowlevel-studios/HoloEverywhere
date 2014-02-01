@@ -16,9 +16,7 @@
 
 package android.support.v7.internal.view.menu;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.os.Parcelable;
+import java.util.ArrayList;
 
 import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.R;
@@ -26,6 +24,9 @@ import org.holoeverywhere.widget.FrameLayout;
 import org.holoeverywhere.widget.ListPopupWindow;
 import org.holoeverywhere.widget.PopupWindow;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,8 +36,6 @@ import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
-
-import java.util.ArrayList;
 
 /**
  * Presents a menu as a small, simple popup anchored to another view.
