@@ -4,6 +4,7 @@ package org.holoeverywhere.slider;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -19,6 +20,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import org.holoeverywhere.HoloEverywhere;
 import org.holoeverywhere.LayoutInflater;
@@ -27,6 +29,7 @@ import org.holoeverywhere.addon.AddonSlider;
 import org.holoeverywhere.addon.AddonSlider.AddonSliderA;
 import org.holoeverywhere.addon.IAddonThemes;
 import org.holoeverywhere.app.Fragment;
+import org.holoeverywhere.drawable.DrawableCompat;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
 
@@ -238,6 +241,9 @@ public class SliderMenu implements OnBackStackChangedListener {
         setTextAppearance(labelView,
                 mInverseTextColorWhenSelected ? selected ? textAppereanceInverse
                         : textAppereance : textAppereance);
+        ImageView iconView = (ImageView) view.findViewById(android.R.id.icon1);
+        iconView.setImageDrawable(item.mIcon);
+        iconView.setVisibility(item.mIcon == null ? View.GONE : View.VISIBLE);
         if (mSelectionBehavior == null) {
             return view;
         }
@@ -423,8 +429,7 @@ public class SliderMenu implements OnBackStackChangedListener {
     @Override
     public void onBackStackChanged() {
         if (mHandleHomeKey) {
-            mActionBar.setDisplayHomeAsUpEnabled(mAddon.isAddonEnabled() ? true :
-                    mFragmentManager.getBackStackEntryCount() > 0);
+            mActionBar.setDisplayHomeAsUpEnabled(mAddon.isAddonEnabled() || mFragmentManager.getBackStackEntryCount() > 0);
         }
         if (mIgnoreBackStack || mCurrentPage < 0 || mCurrentPage >= mItems.size()) {
             return;
@@ -605,6 +610,7 @@ public class SliderMenu implements OnBackStackChangedListener {
         private int mTextAppereance = 0;
         private int mTextAppereanceInverse = 0;
         private List<SliderSubItem> mSubItems;
+        private Drawable mIcon;
 
         public SliderItem() {
         }
@@ -634,77 +640,103 @@ public class SliderMenu implements OnBackStackChangedListener {
             return mBackgroundColor;
         }
 
-        public void setBackgroundColor(int backgroundColor) {
+        public SliderItem setBackgroundColor(int backgroundColor) {
             mBackgroundColor = backgroundColor;
+            return this;
         }
 
         public int getCustomLayout() {
             return mCustomLayout;
         }
 
-        public void setCustomLayout(int customLayout) {
+        public SliderItem setCustomLayout(int customLayout) {
             mCustomLayout = customLayout;
+            return this;
         }
 
         public Bundle getFragmentArguments() {
             return mFragmentArguments;
         }
 
-        public void setFragmentArguments(Bundle fragmentArguments) {
+        public SliderItem setFragmentArguments(Bundle fragmentArguments) {
             mFragmentArguments = fragmentArguments;
+            return this;
         }
 
         public Class<? extends Fragment> getFragmentClass() {
             return mFragmentClass;
         }
 
-        public void setFragmentClass(Class<? extends Fragment> fragmentClass) {
+        public SliderItem setFragmentClass(Class<? extends Fragment> fragmentClass) {
             if (mFragmentClass == fragmentClass) {
-                return;
+                return this;
             }
             mFragmentClass = fragmentClass;
             mSavedState = null;
+            return this;
         }
 
         public CharSequence getLabel() {
             return mLabel;
         }
 
-        public void setLabel(CharSequence label) {
+        public SliderItem setLabel(CharSequence label) {
             mLabel = label;
             invalidate();
+            return this;
+        }
+
+        public Drawable getIcon() {
+            return mIcon;
+        }
+
+        public SliderItem setIcon(int resId) {
+            if (mSliderMenu == null) {
+                throw new IllegalStateException("You cannot provide icon before adding item to SliderMenu");
+            }
+            return setIcon(DrawableCompat.getDrawable(mSliderMenu.mAddon.get().getResources(), resId));
+        }
+
+        public SliderItem setIcon(Drawable icon) {
+            mIcon = icon;
+            invalidate();
+            return this;
         }
 
         public int getSelectionHandlerColor() {
             return mSelectionHandlerColor;
         }
 
-        public void setSelectionHandlerColor(int selectionHandlerColor) {
+        public SliderItem setSelectionHandlerColor(int selectionHandlerColor) {
             mSelectionHandlerColor = selectionHandlerColor;
+            return this;
         }
 
         public String getTag() {
             return mTag;
         }
 
-        public void setTag(String tag) {
+        public SliderItem setTag(String tag) {
             mTag = tag;
+            return this;
         }
 
         public int getTextAppereance() {
             return mTextAppereance;
         }
 
-        public void setTextAppereance(int textAppereance) {
+        public SliderItem setTextAppereance(int textAppereance) {
             mTextAppereance = textAppereance;
+            return this;
         }
 
         public int getTextAppereanceInverse() {
             return mTextAppereanceInverse;
         }
 
-        public void setTextAppereanceInverse(int textAppereanceInverse) {
+        public SliderItem setTextAppereanceInverse(int textAppereanceInverse) {
             mTextAppereanceInverse = textAppereanceInverse;
+            return this;
         }
 
         private void invalidate() {
@@ -717,14 +749,15 @@ public class SliderMenu implements OnBackStackChangedListener {
             return mSaveState;
         }
 
-        public void setSaveState(boolean saveState) {
+        public SliderItem setSaveState(boolean saveState) {
             if (mSaveState == saveState) {
-                return;
+                return this;
             }
             mSaveState = saveState;
             if (!saveState) {
                 mSavedState = null;
             }
+            return this;
         }
 
         @Override
