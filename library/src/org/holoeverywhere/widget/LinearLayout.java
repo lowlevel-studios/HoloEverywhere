@@ -1,11 +1,13 @@
-
 package org.holoeverywhere.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -531,8 +533,8 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
             }
             final int margin = lp.topMargin + lp.bottomMargin;
             final int childHeight = child.getMeasuredHeight() + margin;
-            if (VERSION.SDK_INT >= 11) {
-                childState |= child.getMeasuredState();
+            if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
+                childState |= getChildMeasuredState(child);
             }
             if (baselineAligned) {
                 final int childBaseline = child.getBaseline();
@@ -565,10 +567,12 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
                 maxAscent[INDEX_FILL] != -1) {
             final int ascent = Math.max(maxAscent[INDEX_FILL],
                     Math.max(maxAscent[INDEX_CENTER_VERTICAL],
-                            Math.max(maxAscent[INDEX_TOP], maxAscent[INDEX_BOTTOM])));
+                            Math.max(maxAscent[INDEX_TOP], maxAscent[INDEX_BOTTOM]))
+            );
             final int descent = Math.max(maxDescent[INDEX_FILL],
                     Math.max(maxDescent[INDEX_CENTER_VERTICAL],
-                            Math.max(maxDescent[INDEX_TOP], maxDescent[INDEX_BOTTOM])));
+                            Math.max(maxDescent[INDEX_TOP], maxDescent[INDEX_BOTTOM]))
+            );
             maxHeight = Math.max(maxHeight, ascent + descent);
         }
         if (useLargestChild &&
@@ -616,8 +620,9 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
                     delta -= share;
                     final int childHeightMeasureSpec = getChildMeasureSpec(
                             heightMeasureSpec, getPaddingTop() + getPaddingBottom() + lp.topMargin
-                            + lp.bottomMargin,
-                            lp.height);
+                                    + lp.bottomMargin,
+                            lp.height
+                    );
                     if (lp.width != 0 || widthMode != MeasureSpec.EXACTLY) {
                         int childWidth = child.getMeasuredWidth() + share;
                         if (childWidth < 0) {
@@ -628,11 +633,12 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
                                 childHeightMeasureSpec);
                     } else {
                         child.measure(MeasureSpec.makeMeasureSpec(
-                                share > 0 ? share : 0, MeasureSpec.EXACTLY),
-                                childHeightMeasureSpec);
+                                        share > 0 ? share : 0, MeasureSpec.EXACTLY),
+                                childHeightMeasureSpec
+                        );
                     }
-                    if (VERSION.SDK_INT >= 11) {
-                        childState |= child.getMeasuredState() & MEASURED_STATE_MASK;
+                    if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
+                        childState |= getChildMeasuredState(child) & MEASURED_STATE_MASK;
                     }
                 }
                 if (isExactly) {
@@ -670,10 +676,12 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
                     maxAscent[INDEX_FILL] != -1) {
                 final int ascent = Math.max(maxAscent[INDEX_FILL],
                         Math.max(maxAscent[INDEX_CENTER_VERTICAL],
-                                Math.max(maxAscent[INDEX_TOP], maxAscent[INDEX_BOTTOM])));
+                                Math.max(maxAscent[INDEX_TOP], maxAscent[INDEX_BOTTOM]))
+                );
                 final int descent = Math.max(maxDescent[INDEX_FILL],
                         Math.max(maxDescent[INDEX_CENTER_VERTICAL],
-                                Math.max(maxDescent[INDEX_TOP], maxDescent[INDEX_BOTTOM])));
+                                Math.max(maxDescent[INDEX_TOP], maxDescent[INDEX_BOTTOM]))
+                );
                 maxHeight = Math.max(maxHeight, ascent + descent);
             }
         } else {
@@ -691,7 +699,8 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
                         child.measure(
                                 MeasureSpec.makeMeasureSpec(largestChildWidth, MeasureSpec.EXACTLY),
                                 MeasureSpec.makeMeasureSpec(child.getMeasuredHeight(),
-                                        MeasureSpec.EXACTLY));
+                                        MeasureSpec.EXACTLY)
+                        );
                     }
                 }
             }
@@ -701,9 +710,10 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
         }
         maxHeight += getPaddingTop() + getPaddingBottom();
         maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());
-        setMeasuredDimension(widthSizeAndState | childState & MEASURED_STATE_MASK,
+        setMeasuredDimensionCompat(widthSizeAndState | childState & MEASURED_STATE_MASK,
                 ViewCompat.resolveSizeAndState(maxHeight, heightMeasureSpec,
-                        childState << MEASURED_HEIGHT_STATE_SHIFT));
+                        childState << MEASURED_HEIGHT_STATE_SHIFT)
+        );
         if (matchHeight) {
             forceUniformHeight(count, widthMeasureSpec);
         }
@@ -812,8 +822,8 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
             final int margin = lp.leftMargin + lp.rightMargin;
             final int measuredWidth = child.getMeasuredWidth() + margin;
             maxWidth = Math.max(maxWidth, measuredWidth);
-            if (VERSION.SDK_INT >= 11) {
-                childState |= child.getMeasuredState();
+            if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
+                childState |= getChildMeasuredState(child);
             }
             allFillParent = allFillParent
                     && lp.width == android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -865,7 +875,8 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
                     delta -= share;
                     final int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec,
                             getPaddingLeft() + getPaddingRight() +
-                                    lp.leftMargin + lp.rightMargin, lp.width);
+                                    lp.leftMargin + lp.rightMargin, lp.width
+                    );
                     if (lp.height != 0 || heightMode != MeasureSpec.EXACTLY) {
                         int childHeight = child.getMeasuredHeight() + share;
                         if (childHeight < 0) {
@@ -876,10 +887,11 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
                     } else {
                         child.measure(childWidthMeasureSpec,
                                 MeasureSpec.makeMeasureSpec(share > 0 ? share : 0,
-                                        MeasureSpec.EXACTLY));
+                                        MeasureSpec.EXACTLY)
+                        );
                     }
-                    if (VERSION.SDK_INT >= 11) {
-                        childState |= child.getMeasuredState()
+                    if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
+                        childState |= getChildMeasuredState(child)
                                 & MEASURED_STATE_MASK >> MEASURED_HEIGHT_STATE_SHIFT;
                     }
                 }
@@ -922,11 +934,23 @@ public class LinearLayout extends android.widget.LinearLayout implements Drawabl
         }
         maxWidth += getPaddingLeft() + getPaddingRight();
         maxWidth = Math.max(maxWidth, getSuggestedMinimumWidth());
-        setMeasuredDimension(ViewCompat.resolveSizeAndState(maxWidth, widthMeasureSpec, childState),
-                heightSizeAndState);
+        setMeasuredDimensionCompat(ViewCompat.resolveSizeAndState(maxWidth, widthMeasureSpec, childState), heightSizeAndState);
         if (matchWidth) {
             forceUniformWidth(count, heightMeasureSpec);
         }
+    }
+
+    private void setMeasuredDimensionCompat(int measuredWidth, int measuredHeight) {
+        if (VERSION.SDK_INT < VERSION_CODES.HONEYCOMB) {
+            measuredWidth &= MEASURED_SIZE_MASK;
+            measuredHeight &= MEASURED_SIZE_MASK;
+        }
+        setMeasuredDimension(measuredWidth, measuredHeight);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private int getChildMeasuredState(final View child) {
+        return child.getMeasuredState();
     }
 
     @Override
